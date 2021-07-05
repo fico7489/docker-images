@@ -1,0 +1,17 @@
+{
+    "name": "fico7489/docker-images",
+    "description": "docker images",
+    "keywords": [
+        "docker images"
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fico7489\\AdminForm\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
