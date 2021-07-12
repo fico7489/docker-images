@@ -58,15 +58,15 @@ RUN echo 'memory_limit = 1024M' >> /usr/local/etc/php/conf.d/docker-php-memlimit
 RUN groupadd -g 1000 php && useradd -u 1000  -g php -s /bin/sh php
 
 # PHP ini overrides
-COPY php/php-ini-overrides.ini /usr/local/etc/php/conf.d/custom.ini
+COPY ${PHP_PATH}/php-ini-overrides.ini /usr/local/etc/php/conf.d/custom.ini
 
 RUN mkdir /home/php
 RUN chown php:php -R /home/php
 RUN chown -R php:php /var/www/html/
 
 RUN mkdir /etc/crontabs
-COPY php/cron/cronjobs /etc/crontabs/root
-COPY php/supervisor/supervisord.conf /etc/supervisord.conf
+COPY ${PHP_PATH}/cron/cronjobs /etc/crontabs/root
+COPY ${PHP_PATH}/supervisor/supervisord.conf /etc/supervisord.conf
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
