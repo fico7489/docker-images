@@ -64,8 +64,14 @@ RUN mkdir /home/php
 RUN chown php:php -R /home/php
 RUN chown -R php:php /var/www/html/
 
-RUN mkdir /etc/crontabs
-COPY ${PHP_PATH}/cron/cronjobs /etc/crontabs/root
+
+COPY ${PHP_PATH}/cron/crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
+RUN crontab -u php /etc/cron.d/crontab
+RUN touch /var/log/cron.log
+RUN chown -R php:php /var/log/cron.log
+RUN chmod gu+s /usr/sbin/cron
+
 COPY ${PHP_PATH}/supervisor/supervisord.conf /etc/supervisord.conf
 
 RUN touch /tmp/supervisor.sock
